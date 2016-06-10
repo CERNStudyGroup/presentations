@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Intro to #rstats</title>
+
+		<meta name="description" content="Introduction to R">
+		<meta name="author" content="Achintya Rao">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/reveal.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/theme/serif.min.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/css/zenburn.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/pdf.min.css' : 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/css/print/paper.min.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-markdown>
+					<script type="text/template">
+						## Intro to R
+
+						---
+
+						[cernstudygroup.github.io/presentations/02-intro-rstats](https://cernstudygroup.github.io/presentations/02-intro-rstats)
+					</script>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### R is…
+
+							- programming language <!-- .element: class="fragment roll-in" -->
+							- software environment <!-- .element: class="fragment roll-in" -->
+							- for statistical computing <!-- .element: class="fragment roll-in" -->
+							- libre software <!-- .element: class="fragment roll-in" -->
+							- cross-platform <!-- .element: class="fragment roll-in" -->
+
+							[https://www.r-project.org/](https://www.r-project.org/) <!-- .element: class="fragment roll-in" -->
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							#### You can use R via…
+
+							- a command-line interface (CLI) <!-- .element: class="fragment roll-in" -->
+							![R_Terminal](../images/R_Terminal.png)
+
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							#### or…
+
+							- a graphical user interface (here: RStudio) <!-- .element: class="fragment roll-in" -->
+							![R_Terminal](../images/RStudio.png)
+
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### Getting started with R
+
+							- Precompiled binaries: [https://cran.r-project.org/](https://cran.r-project.org/)
+							- CLI installation:
+								- Ubuntu / Debian:
+								```bash
+								$ sudo apt update && sudo apt install r-base
+								```
+								- OS X (homebrew users):
+								```bash
+								$ brew update && brew install r
+								```
+								- Windows:
+								```bash
+								¯\_(ツ)_/¯
+								```
+							- Test:
+							```bash
+							$ r --version
+							```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							### An R session
+
+							- Is launched by
+							```bash
+							$ r
+							```
+							- Is terminated by
+							```r
+							q()
+							```
+								- You will be prompted to save the workspace, quit without saving, or cancel the `quit` command:
+								```r
+								Save workspace image? [y/n/c]: |
+								```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							### R comes with…
+
+							- Help:
+								- ```r
+								help()
+								```
+								- ```r
+								help.start()
+								```
+							- Demos. For example:
+							```r
+							demo(graphics)
+							```
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### History
+
+							- R saves your previously entered commands in a file called `.Rapp.history`.
+							- You can scroll through your history using the up and down keys.
+							- This is stored in the directory from which you launch R.
+								- So, launching R from different directories will give you different `.Rapp.history` files.
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							### Working directory
+
+							- By default, R will treat the folder from which you launched the program as the working directory.
+							- All files invoked by R must have their paths set relative to the working directory.
+							- Identify your working directory:
+							```r
+							getwd()
+							[1] "/Users/foo"
+							```
+							- Change your working directory:
+							```r
+							setwd("/Users/foo/bar")
+							getwd()
+							[1] "/Users/foo/bar"
+							```
+						</script>
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### Arithmetic
+
+							- All the usual stuff:
+								- ```r
+								1+1
+								[1] 2
+								```
+								- ```r
+								a <- 5
+								a
+								[1] 5
+								```
+								- ```r
+								a <- a * 5
+								a
+								[1] 25
+								```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+							### Importing data
+
+							- From CSV:
+							```r
+							data <- read.csv("http://foo.example.com/file.csv")
+							```
+							- More import options: [http://www.r-bloggers.com/importing-data-into-r-from-different-sources/](http://www.r-bloggers.com/importing-data-into-r-from-different-sources/)
+						</script>
+					</section>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### RStudio
+
+						- An IDE for R
+						- Download: [https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)
+							- OS X users with homebrew:
+							```bash
+							$ brew cask install rstudio
+							```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### [R]esources
+
+						- [An Introduction to R [PDF]](https://cran.r-project.org/doc/manuals/R-intro.pdf)
+						- [A (very) short introduction to R [PDF]](https://cran.r-project.org/doc/contrib/Torfs+Brauer-Short-R-Intro.pdf)
+						- [R Tutorial's Introduction](http://www.r-tutor.com/r-introduction)
+						- [Wikibooks entry on R](https://en.wikibooks.org/wiki/R_Programming)
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### Interactive presentations!
+
+						- [My talk at PCST2016](https://github.com/RaoOfPhysics/201604_PCST)
+						![Rmd_example](../images/Rmd_example.png)
+					</script>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/head.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/lib/js/classList.min.js', condition: function() { return !document.body.classList; } },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/marked.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/markdown/markdown.min.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/highlight/highlight.min.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/zoom-js/zoom.min.js', async: true },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/notes/notes.min.js', async: true },
+					{ src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.3.0/plugin/math/math.min.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
